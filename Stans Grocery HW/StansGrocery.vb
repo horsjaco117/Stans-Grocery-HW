@@ -2,7 +2,7 @@
 Option Strict On
 Imports System.IO
 Public Class StansGrocery
-
+    Dim food$(,)
 
     'Private Sub GraphicExamplesForm_activated(sender As Object, e As EventArgs) Handles Me.Activated
     '    Static isStartUp As Boolean = True
@@ -30,35 +30,34 @@ Public Class StansGrocery
         Dim filepath As String = "..\..\Grocery(1).txt" 'Emails for VB.txt
         Dim fileNumber As Integer = FreeFile()
         Dim currentRecord As String = ""
-        Dim temp() As String ' use for splitting customer data
+        '  Dim temp() As String ' use for splitting customer data
         Dim currentID As Integer = 699
         Dim rawLines() As String = System.IO.File.ReadAllLines("..\..\Grocery(1).txt")
-
-        For Each line In rawLines
-            Dim parts() As String = line.Split(","c)
-
-            If parts.Length = 3 Then
-                Dim item As String = parts(0).Replace("""", "").Replace("$$ITM", "").Trim()
-                Dim location As String = parts(1).Replace("""", "").Replace("##LOC", "").Trim()
-                Dim category As String = parts(2).Replace("""", "").Replace("%%CAT", "").Trim()
-
-                ' Add to ListBox instead of console
-                DisplayListBox.Items.Add(String.Format(item, location, category))
-            End If
-        Next
+        Dim food$(,)  ' Global 2D array to store item data
+        Dim fileName As String = "path_to_input_file.txt"
 
         Try
-            FileOpen(fileNumber, filepath, OpenMode.Input)
-            Do Until EOF(fileNumber)
-                Input(fileNumber, currentRecord) 'Read exactly one record
-                If currentRecord <> "" Then 'This gets rid of unnecessary spacing
-                    temp = Split(currentRecord, ",")
-                    temp(0) = Replace(temp(0), "$", "") 'dollar signs were replaced with blank space in the first name
-                    DisplayListBox.Items.Add(currentRecord) 'display portion of the array. 0-4
-                    currentID += 1
+
+            Dim temp() As String = System.IO.File.ReadAllLines("..\..\Grocery(1).txt")
+            Dim n As Integer = temp.Length - 1
+
+            ReDim food$(n, 2) ' 3 columns: 0 = name, 1 = aisle, 2 = category
+
+            DisplayListBox.Items.Clear()
+
+            For i As Integer = 0 To n
+                Dim parts() As String = temp(i).Split(","c)
+
+                If parts.Length = 3 Then
+                    food$(i, 0) = parts(0).Replace("""", "").Replace("$$ITM", "").Trim()
+                    food$(i, 1) = parts(1).Replace("""", "").Replace("##LOC", "").Trim()
+                    food$(i, 2) = parts(2).Replace("""", "").Replace("%%CAT", "").Trim()
+
+                    FilterComboBox.Items.Add(
+                        String.Format(food$(i, 0), food$(i, 1), food$(i, 2)))
+                    'Add at beginning of paranthesis
                 End If
-            Loop
-            FileClose(fileNumber)
+            Next
         Catch bob As FileNotFoundException
 
             MsgBox("Bob is sad...")
@@ -70,8 +69,22 @@ Public Class StansGrocery
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
+        ' ReadfromFile()
+    End Sub
+
+    Private Sub StansGrocery_Load(sender As Object, e As EventArgs) Handles Me.Load
         ReadfromFile()
     End Sub
 
+    Private Sub FilterByAisleRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByAisleRadioButton.CheckedChanged
+        If FilterByAisleRadioButton.Checked = True Then
+            DisplayListBox.Show()
+        End If
+    End Sub
 
+    Private Sub FilterByCategoryRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles FilterByCategoryRadioButton.CheckedChanged
+        If FilterByCategoryRadioButton.Checked = True Then
+
+        End If
+    End Sub
 End Class
