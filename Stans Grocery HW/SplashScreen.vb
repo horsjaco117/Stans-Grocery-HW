@@ -1,13 +1,13 @@
 ﻿Public Class SplashScreen
     Private Sub Splashscreen_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-        Form1.SendToBack()
+        StansGrocery.SendToBack()
         SplashTimer.Enabled() = True
-        Form1.Hide()
+        StansGrocery.Hide()
     End Sub
 
     Private Sub SplashTimer1_Tick(sender As Object, e As EventArgs) Handles SplashTimer.Tick
         SplashTimer.Enabled = False
-        Form1.Show()
+        StansGrocery.Show()
         Me.Close()
     End Sub
 
