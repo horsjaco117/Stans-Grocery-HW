@@ -22,6 +22,7 @@ Partial Class StansGrocery
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.SearchTextBox = New System.Windows.Forms.TextBox()
         Me.SearchButton = New System.Windows.Forms.Button()
         Me.FilterComboBox = New System.Windows.Forms.ComboBox()
@@ -37,6 +38,7 @@ Partial Class StansGrocery
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.FilterGroupBox.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -47,6 +49,7 @@ Partial Class StansGrocery
         Me.SearchTextBox.Name = "SearchTextBox"
         Me.SearchTextBox.Size = New System.Drawing.Size(100, 26)
         Me.SearchTextBox.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.SearchTextBox, "Search for any of your grocery desires")
         '
         'SearchButton
         '
@@ -55,6 +58,7 @@ Partial Class StansGrocery
         Me.SearchButton.Size = New System.Drawing.Size(112, 75)
         Me.SearchButton.TabIndex = 1
         Me.SearchButton.Text = "Search"
+        Me.ToolTip1.SetToolTip(Me.SearchButton, "Click this button once a desired item is typed into the search bar")
         Me.SearchButton.UseVisualStyleBackColor = True
         '
         'FilterComboBox
@@ -64,6 +68,7 @@ Partial Class StansGrocery
         Me.FilterComboBox.Name = "FilterComboBox"
         Me.FilterComboBox.Size = New System.Drawing.Size(121, 28)
         Me.FilterComboBox.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.FilterComboBox, "A list of filters that allow you to narrow your results")
         '
         'DisplayListBox
         '
@@ -82,6 +87,7 @@ Partial Class StansGrocery
         Me.DisplayLabel.Size = New System.Drawing.Size(60, 20)
         Me.DisplayLabel.TabIndex = 5
         Me.DisplayLabel.Text = "Display"
+        Me.ToolTip1.SetToolTip(Me.DisplayLabel, "Displays desired information")
         '
         'FilterGroupBox
         '
@@ -101,19 +107,21 @@ Partial Class StansGrocery
         Me.FilterByCategoryRadioButton.Name = "FilterByCategoryRadioButton"
         Me.FilterByCategoryRadioButton.Size = New System.Drawing.Size(157, 24)
         Me.FilterByCategoryRadioButton.TabIndex = 1
-        Me.FilterByCategoryRadioButton.TabStop = True
         Me.FilterByCategoryRadioButton.Text = "Filter by Category"
+        Me.ToolTip1.SetToolTip(Me.FilterByCategoryRadioButton, "Filter Stans goods by category")
         Me.FilterByCategoryRadioButton.UseVisualStyleBackColor = True
         '
         'FilterByAisleRadioButton
         '
         Me.FilterByAisleRadioButton.AutoSize = True
+        Me.FilterByAisleRadioButton.Checked = True
         Me.FilterByAisleRadioButton.Location = New System.Drawing.Point(19, 39)
         Me.FilterByAisleRadioButton.Name = "FilterByAisleRadioButton"
         Me.FilterByAisleRadioButton.Size = New System.Drawing.Size(125, 24)
         Me.FilterByAisleRadioButton.TabIndex = 0
         Me.FilterByAisleRadioButton.TabStop = True
         Me.FilterByAisleRadioButton.Text = "Filter by aisle"
+        Me.ToolTip1.SetToolTip(Me.FilterByAisleRadioButton, "Filter Stans good by aisle")
         Me.FilterByAisleRadioButton.UseVisualStyleBackColor = True
         '
         'SearchLabel
@@ -146,13 +154,13 @@ Partial Class StansGrocery
         'SearchToolStripMenuItem
         '
         Me.SearchToolStripMenuItem.Name = "SearchToolStripMenuItem"
-        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(166, 34)
+        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
         Me.SearchToolStripMenuItem.Text = "Search"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(166, 34)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'HelpToolStripMenuItem
@@ -208,4 +216,5 @@ Partial Class StansGrocery
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
