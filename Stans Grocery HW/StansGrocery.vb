@@ -1,5 +1,6 @@
-﻿Imports System.IO
-
+﻿Option Explicit On
+Option Strict On
+Imports System.IO
 Public Class StansGrocery
 
 
@@ -31,29 +32,30 @@ Public Class StansGrocery
         Dim currentRecord As String = ""
         Dim temp() As String ' use for splitting customer data
         Dim currentID As Integer = 699
+        Dim rawLines() As String = System.IO.File.ReadAllLines("..\..\Grocery(1).txt")
+
+        For Each line In rawLines
+            Dim parts() As String = line.Split(","c)
+
+            If parts.Length = 3 Then
+                Dim item As String = parts(0).Replace("""", "").Replace("$$ITM", "").Trim()
+                Dim location As String = parts(1).Replace("""", "").Replace("##LOC", "").Trim()
+                Dim category As String = parts(2).Replace("""", "").Replace("%%CAT", "").Trim()
+
+                ' Add to ListBox instead of console
+                DisplayListBox.Items.Add(String.Format(item, location, category))
+            End If
+        Next
+
         Try
             FileOpen(fileNumber, filepath, OpenMode.Input)
             Do Until EOF(fileNumber)
                 Input(fileNumber, currentRecord) 'Read exactly one record
                 If currentRecord <> "" Then 'This gets rid of unnecessary spacing
                     temp = Split(currentRecord, ",")
-                    'ListBox1.Items.Add(currentRecord) 'Add the record into the list box
-                    If temp.Length = 4 Then 'ignoring malformed records
-                        '    ListBox1.Items.Add(temp(0))
-                        'End If
-                        temp(0) = Replace(temp(0), "$", "") 'dollar signs were replaced with blank space in the first name
-                        DisplayListBox.Items.Add(temp(0)) 'display portion of the array. 0-4
-                        'WriteToFile(temp(0)) 'first name
-                        'WriteToFile(temp(1)) 'last name
-                        'WriteToFile("") 'place holder for street
-                        'WriteToFile(temp(2)) 'city
-                        'WriteToFile(("ID")) 'state
-                        'WriteToFile("") 'zip
-                        'WriteToFile("") ' phone
-                        'WriteToFile(temp(3)) ' email
-                        'WriteToFile($"000631{currentID}", True) 'customer ID
-                        currentID += 1
-                    End If
+                    temp(0) = Replace(temp(0), "$", "") 'dollar signs were replaced with blank space in the first name
+                    DisplayListBox.Items.Add(currentRecord) 'display portion of the array. 0-4
+                    currentID += 1
                 End If
             Loop
             FileClose(fileNumber)
@@ -70,24 +72,6 @@ Public Class StansGrocery
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
         ReadfromFile()
     End Sub
-    'Sub WriteToFile(newRecord As String, Optional insertLine As Boolean = False)
-    '    Dim filepath As String = "..\..\..\CustomerDataBackup - Copy.txt"
-    '    Dim filenumber As Integer = FreeFile()
-
-    '    Try
-
-    '        FileOpen(filenumber, filepath, OpenMode.Append)
-    '        Write(filenumber, newRecord)
-    '        If insertLine Then
-    '            WriteLine(filenumber)
-    '        End If
-
-    '        FileClose(filenumber)
-    '    Catch ex As Exception
-    '        MsgBox($"Error writing to {filepath})")
-    '    End Try
-
-    'End Sub
 
 
 End Class
